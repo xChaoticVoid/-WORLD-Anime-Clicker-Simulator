@@ -83,7 +83,7 @@ end)
 
 local Section = Tab:NewSection("More")
 
-Section:NewDropdown("Auto Upgrade", "List Of Upgrades", {"Run Speed", "More Rebirths", "Star Open Speed", "More Storage", "Crit Chance", "More Yen"}, function(h)
+Section:NewDropdown("Upgrades", "List Of Upgrades", {"Run Speed", "More Rebirths", "Star Open Speed", "More Storage", "Crit Chance", "More Yen"}, function(h)
     Upgrade = h
 end)
 
