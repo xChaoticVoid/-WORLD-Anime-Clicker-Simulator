@@ -38,6 +38,12 @@ Section:NewSlider("#'s Of Rebirths", "1 = First Rebirth, 2 = Second; Etc.", 56, 
     SelectRebirth = a
 end)
 
+local Section = Tab:NewSection("Eggs & Boss")
+
+Section:NewDropdown("Eggs", "List of Eggs", {"Monster Star", "Walled Star", "Crazy Star", "Colony Star", "All Star", "Quirky Star", "Bizarre Star", "Freezie Star", "Evil Vegete Star", "Serparu Star", "Narmekian Star", "Destructor Star", "Chima King Star", "Hunter Star", "Ancient Star", "Fighting Star", "Flame McFlame Companion", "Demon Star", "Akarstski Star", "Purple Forest Star", "5M Star", "Soul Star", "Ocean Star", "Pirate Star", "Spirit Star", "Shinobi Star", "Dragon Star", "Nine Tailed Star", "Slayer Star"}, function(b)
+    Egg = b
+end)
+
 Section:NewToggle("Auto Open", "Auto Opens the selected Egg(Be Close to the Selected Egg)", function(state)
     if state then
         getgenv().Pet = true
@@ -54,8 +60,8 @@ Section:NewToggle("Auto Open", "Auto Opens the selected Egg(Be Close to the Sele
     end
 end)
 
-Section:NewDropdown("Eggs", "List of Eggs", {"Monster Star", "Walled Star", "Crazy Star", "Colony Star", "All Star", "Quirky Star", "Bizarre Star", "Freezie Star", "Evil Vegete Star", "Serparu Star", "Narmekian Star", "Destructor Star", "Chima King Star", "Hunter Star", "Ancient Star", "Fighting Star", "Flame McFlame Companion", "Demon Star", "Akarstski Star", "Purple Forest Star", "5M Star", "Soul Star", "Ocean Star", "Pirate Star", "Spirit Star", "Shinobi Star", "Dragon Star", "Nine Tailed Star", "Slayer Star"}, function(b)
-    Egg = b
+Section:NewDropdown("Boss", "List Of Bosses", {"Evil Vegete", "Serparu", "Freezie", "Chima King", "The Destroyer"}, function(c)
+    Bosses = c
 end)
 
 Section:NewToggle("Auto Boss", "Auto Boss", function(state)
@@ -75,9 +81,27 @@ else
 end
 end)
 
-Section:NewDropdown("Boss", "List Of Bosses", {"Evil Vegete", "Serparu", "Freezie", "Chima King"}, function(c)
-    Bosses = c
+local Section = Tab:NewSection("More")
+
+Section:NewDropdown("Auto Upgrade", "List Of Upgrades", {"Run Speed", "More Rebirths", "Star Open Speed", "More Storage", "Crit Chance", "More Yen"}, function(h)
+    Upgrade = h
 end)
+
+Section:NewToggle("Auto Upgrade", "Auto Upgrade", function(state)
+    if state then
+        getgenv().U = true
+        while getgenv().U == true do
+        local args = {
+            [1] = Upgrade
+        }
+        
+        game:GetService("ReplicatedStorage").Remotes.RequestUpgrade:FireServer(unpack(args))
+        wait(3)
+    end
+    else
+        getgenv().U = false
+    end
+    end)
 
 Section:NewButton("Daily Reward", "Collects Daily Reward", function()
 local args = {
@@ -137,6 +161,10 @@ Section:NewButton("The Sin Zone", "World", function()
     game:service'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1007.59814, -36.7777901, -855.524353, 0, 0, -1, 0, 1, 0, 1, 0, 0)
 end)
 
+Section:NewButton("Walled Arena", "World", function()
+    game:service'Players'.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(334.231201, -75.4094543, 2211.42651, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+
 local Tab = Window:NewTab("Misc.")
 local Section = Tab:NewSection("Misc.")
 
@@ -150,9 +178,10 @@ Section:NewTextBox("Tp to Player", "Type in players name", function(txt)
     plr1.HumanoidRootPart.CFrame = plr2.HumanoidRootPart.CFrame * CFrame.new(0,2,0)
 end)
 
+local Section = Tab:NewSection("Ui Toggle")
+
 Section:NewKeybind("Toggle Ui", "Toggle Ui", Enum.KeyCode.RightAlt, function()
 	Library:ToggleUI()
 end)
 
-local Section = Tab:NewSection("Credits")
 Section:NewLabel("Credit: Chaotic_Void")
